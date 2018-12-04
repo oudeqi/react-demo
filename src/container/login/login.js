@@ -22,6 +22,8 @@ class Login extends React.Component {
             <InputItem>用户</InputItem>
             <InputItem>密码</InputItem>
           </List>
+          <WhiteSpace />
+          <WhiteSpace />
           <Button type="primary">登录</Button>
           <WhiteSpace />
           <Button onClick={this.register} type="primary">注册</Button>
