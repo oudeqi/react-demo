@@ -5,7 +5,7 @@ import { addGun, addGunAsync, removeGun } from '../redux/index'
 // 你要state的什么属性放到props里
 const mapStateToProps = (state) => {
   return {
-    num: state
+    num: state.counter
   }
 }
 
