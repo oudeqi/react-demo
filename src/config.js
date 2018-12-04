@@ -4,6 +4,14 @@ import { Toast } from 'antd-mobile'
 // 添加一个请求拦截器
 axios.interceptors.request.use(function (config) {
   console.log(config)
+  if (config.url.includes('?')) {
+    config.url = `http://localhost:3000/api/v1${config.url}&_t=${new Date().getTime()}`
+  } else {
+    config.url = `http://localhost:3000/api/v1${config.url}?_t=${new Date().getTime()}`
+  }
+  
+  
+
   // Do something before request is sent
   Toast.loading('加载中...', 0)
   return config;

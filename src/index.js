@@ -29,6 +29,7 @@ import {
 } from 'react-router-dom'
 
 
+import AuthRoute from './component/authRoute/authRoute'
 import Login from './container/login/login'
 import Register from './container/register/register'
 import reducers from './reducer'
@@ -42,13 +43,21 @@ const store = process.env.NODE_ENV === 'production' ?
       (createStore(reducers, applyMiddleware(thunk)))
   )
 
+  function Boss () {
+    return <div>Boss</div>
+  }
+
 ReactDom.render(
   <Provider store={store}>
     <BrowserRouter>
+    <div>
+      <AuthRoute></AuthRoute>
       <Switch>
+        <Route path="/boss" exact component={Boss}></Route>
         <Route path="/login" exact component={Login}></Route>
         <Route path="/register" component={Register}></Route>
       </Switch>
+    </div>
     </BrowserRouter>
   </Provider>, 
   document.getElementById('root')
