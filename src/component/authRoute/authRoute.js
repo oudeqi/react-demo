@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
+// 让非路由组件访问路由相关api
 @withRouter
 class AuthRoute extends React.Component {
   componentDidMount () {
@@ -15,6 +16,7 @@ class AuthRoute extends React.Component {
       if (res.status === 200 && res.data.success) {
         // 没有登录信息
       } else {
+        // 路由相关的api
         this.props.history.push('/login')
       }
     }).catch((err) => {

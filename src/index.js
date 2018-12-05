@@ -35,17 +35,14 @@ import Register from './container/register/register'
 import reducers from './reducer'
 import './config'
 
+// window.devToolsExtension 将在下个版本移除
 const store = process.env.NODE_ENV === 'production' ? 
-  (createStore(reducers, applyMiddleware(thunk))) : 
-  (
-    window.devToolsExtension ? 
-      (createStore(reducers, compose(applyMiddleware(thunk), window.devToolsExtension()))) : 
-      (createStore(reducers, applyMiddleware(thunk)))
-  )
-
-  function Boss () {
-    return <div>Boss</div>
-  }
+(createStore(reducers, applyMiddleware(thunk))) : 
+(
+  window.__REDUX_DEVTOOLS_EXTENSION__ ? 
+  (createStore(reducers, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__()))) : 
+  (createStore(reducers, applyMiddleware(thunk)))
+)
 
 ReactDom.render(
   <Provider store={store}>
@@ -53,7 +50,6 @@ ReactDom.render(
     <div>
       <AuthRoute></AuthRoute>
       <Switch>
-        <Route path="/boss" exact component={Boss}></Route>
         <Route path="/login" exact component={Login}></Route>
         <Route path="/register" component={Register}></Route>
       </Switch>
