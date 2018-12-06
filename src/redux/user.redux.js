@@ -2,38 +2,30 @@ import axios from 'axios'
 import { getRedirectPath } from '../util'
 
 // action
-const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+const AUth_SUCCESS = 'AUth_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
+const USER_INFO = 'USER_INFO'
 
 const initState = {
   isAuth: false,
   redirectTo: '',
   msg: '',
   user: '',
-  pwd: '',
   type: ''
 }
 
 // reducer
 export function user (state=initState, action) {
   switch (action.type) {
-    case REGISTER_SUCCESS: 
+    case AUth_SUCCESS: 
       return {
         ...state, 
         msg:'', 
-        isAuth:true, 
         redirectTo:getRedirectPath(action.payload), 
         ...action.payload
       }
-    case LOGIN_SUCCESS: 
-      return {
-        ...state, 
-        msg:'', 
-        isAuth:true, 
-        redirectTo:getRedirectPath(action.payload), 
-        ...action.payload
-      }
+    case USER_INFO: 
+      return {...state, ...action.payload}
     case ERROR_MSG: 
       return {...state, isAuth:false, msg:action.msg}
     default: 
@@ -42,24 +34,37 @@ export function user (state=initState, action) {
 }
 
 // action creator
-export function loginSueecss (data) {
+export function authSueecss (data) {
   return {
-    type: LOGIN_SUCCESS,
+    type: AUth_SUCCESS,
     payload: data
   }
 }
-export function registerSueecss (data) {
+export function userInfo (data) {
   return {
-    type: REGISTER_SUCCESS,
+    type: USER_INFO,
     payload: data
   }
-} 
+}
 export function errorMsg (data) {
   return {
     type: ERROR_MSG,
     msg: data
   }
 } 
+export function update (data) {
+  return dispatch => {
+    axios.post('/user/update', data).then(res => {
+      if (res.status === 200 && res.data.success === true) {
+        dispatch(authSueecss(res.data.data))
+      } else {
+        dispatch(errorMsg(res.data.msg))
+      }
+    }).catch(err => {
+      dispatch(errorMsg(String(err)))
+    })
+  }
+}
 export function login ({user, pwd}) {
   if (!user || !pwd) {
     return errorMsg('用户名密码必须输入')
@@ -67,7 +72,7 @@ export function login ({user, pwd}) {
   return dispatch => {
     axios.post('/user/login', {user, pwd}).then(res => {
       if (res.status === 200 && res.data.success === true) {
-        dispatch(loginSueecss(res.data.data))
+        dispatch(authSueecss(res.data.data))
       } else {
         dispatch(errorMsg(res.data.msg))
       }
@@ -86,7 +91,7 @@ export function register ({user, pwd, repeatpwd, type}) {
   return dispatch => {
     axios.post('/user/register', {user, pwd, type}).then(res => {
       if (res.status === 200 && res.data.success === true) {
-        dispatch(registerSueecss({user, pwd, type}))
+        dispatch(authSueecss({user, pwd, type}))
       } else {
         dispatch(errorMsg(res.data.msg))
       }
