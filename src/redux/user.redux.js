@@ -35,15 +35,17 @@ export function user (state=initState, action) {
 
 // action creator
 export function authSueecss (data) {
+  const { pwd, ...rest } = data
   return {
     type: AUth_SUCCESS,
-    payload: data
+    payload: rest
   }
 }
 export function userInfo (data) {
+  const { pwd, ...rest } = data
   return {
     type: USER_INFO,
-    payload: data
+    payload: rest
   }
 }
 export function errorMsg (data) {
@@ -56,7 +58,8 @@ export function update (data) {
   return dispatch => {
     axios.post('/user/update', data).then(res => {
       if (res.status === 200 && res.data.success === true) {
-        dispatch(authSueecss(res.data.data))
+        const { pwd, ...rest } = res.data.data
+        dispatch(authSueecss(rest))
       } else {
         dispatch(errorMsg(res.data.msg))
       }
@@ -72,7 +75,8 @@ export function login ({user, pwd}) {
   return dispatch => {
     axios.post('/user/login', {user, pwd}).then(res => {
       if (res.status === 200 && res.data.success === true) {
-        dispatch(authSueecss(res.data.data))
+        const { pwd, ...rest } = res.data.data
+        dispatch(authSueecss(rest))
       } else {
         dispatch(errorMsg(res.data.msg))
       }

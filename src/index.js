@@ -34,7 +34,8 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import reducers from './reducer'
 import './config'
-import BossInfo from './container/bossInfo/bossInfo';
+import BossInfo from './container/bossInfo/bossInfo'
+import GeniusInfo from './container/geniusInfo/geniusInfo'
 
 // window.devToolsExtension 将在下个版本移除
 const store = process.env.NODE_ENV === 'production' ? 
@@ -54,6 +55,7 @@ ReactDom.render(
         <Route path="/login" exact component={Login}></Route>
         <Route path="/register" component={Register}></Route>
         <Route path="/boss-info" component={BossInfo}></Route>
+        <Route path="/genius-info" component={GeniusInfo}></Route>
       </Switch>
     </div>
     </BrowserRouter>
