@@ -36,6 +36,7 @@ import reducers from './reducer'
 import './config'
 import BossInfo from './container/bossInfo/bossInfo'
 import GeniusInfo from './container/geniusInfo/geniusInfo'
+import Dashboard from './component/dashboard/dashboard'
 
 // window.devToolsExtension 将在下个版本移除
 const store = process.env.NODE_ENV === 'production' ? 
@@ -56,6 +57,7 @@ ReactDom.render(
         <Route path="/register" component={Register}></Route>
         <Route path="/boss-info" component={BossInfo}></Route>
         <Route path="/genius-info" component={GeniusInfo}></Route>
+        <Route component={Dashboard}></Route>
       </Switch>
     </div>
     </BrowserRouter>

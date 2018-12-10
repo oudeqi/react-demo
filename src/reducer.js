@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux'
 
-import { counter } from './redux/index'
-import { auth } from './redux/auth'
 import { user } from './redux/user.redux'
+import { chatuser } from './redux/chatuser.redux'
 
-const reducers =  combineReducers({counter, auth, user})
+const reducers =  combineReducers({user, chatuser})
 
 export default reducers

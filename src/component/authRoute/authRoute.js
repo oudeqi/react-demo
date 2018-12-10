@@ -9,7 +9,6 @@ import { userInfo } from '../../redux/user.redux'
 @connect(null, { userInfo })
 class AuthRoute extends React.Component {
   componentDidMount () {
-    console.log(this.props)
     const publicList = ['/login', '/register']
     const pathname = this.props.location.pathname
     if (publicList.includes(pathname)) {
