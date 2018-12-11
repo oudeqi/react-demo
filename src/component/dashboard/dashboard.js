@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <NavBar className="fixed-top" mode="dark">
-          { navList.find(v=>v.path===pathname).title }
+          { pathname !== '/' && navList.find(v=>v.path===pathname).title }
         </NavBar>
         <div className="content-top-padd">
           <Switch>

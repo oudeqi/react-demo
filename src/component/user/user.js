@@ -18,7 +18,7 @@ class User extends React.Component {
     Modal.alert('注销', '确认退出登录吗？', [
       {text: '取消', onPress: ()=>{console.log('取消')}},
       {text: '确认', onPress: ()=>{
-        // 只能用于非 http only
+        // http only 无法使用
         browserCookies.erase('koa:sess')
         browserCookies.erase('koa:sess.sig')
         this.props.logoutSubmit()
