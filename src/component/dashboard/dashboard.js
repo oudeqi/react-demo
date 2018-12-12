@@ -6,19 +6,24 @@ import { Switch, Route } from 'react-router-dom'
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
 import User from '../user/user'
+import { getMsgList, recvMsg } from '../../redux/chat.redux'
 
 function Msg () {
   return <div>Msg</div>
 }
 
 const mapStateToProps = state => state
-@connect(mapStateToProps)
+@connect(mapStateToProps, {getMsgList, recvMsg})
 class Dashboard extends React.Component {
-
+  componentDidMount () {
+		this.props.getMsgList()
+    if (!this.props.chat.msg.length) {
+      this.props.recvMsg()
+    }
+  }
   render () {
     const pathname = this.props.location.pathname
 		const user = this.props.user
-		console.log(this.props)
     const navList = [
 			{
 				path: '/boss',

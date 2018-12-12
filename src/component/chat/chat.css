@@ -1,0 +1,35 @@
+#chat-page .chat-me .am-list-extra{
+	flex-basis:auto;
+}
+#chat-page .chat-me .am-list-content{
+	padding-right: 15px;
+	text-align: right;
+}
+
+#chat-page .am-grid-icon {
+	display: none;
+}
+#chat-page .am-grid-text {
+	margin-top: 0;
+}
+#chat-page .am-list-item .am-input-extra {
+	overflow: auto
+}
+#chat-page .am-grid {
+	touch-action: none;
+	/* 让滚动时浏览器不报错 */
+	/* 样任何触摸事件都不会产生默认行为，但是 touch 事件照样触发。 */
+}
+#chat-page .emoji-btn {
+	padding-right: 10px;
+	padding-left: 10px;
+	display: inline-block;
+	line-height: 24px;
+	vertical-align: middle;
+}
+
+#chat-page .send-btn {
+	display: inline-block;
+	line-height: 24px;
+	vertical-align: middle;
+}
