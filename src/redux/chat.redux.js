@@ -18,14 +18,14 @@ const initState = {
 export function chat (state=initState, action) {
   switch (action.type) {
     case MSG_LIST:
+      const {chat, users, myID} = action.payload
       return {
         ...state, 
-        msg:action.payload.chat, 
-        unread:action.payload.chat.filter(v=>!v.read && v.to === action.payload.myID).length,
-        users: action.payload.users
+        msg:chat, 
+        unread:chat.filter(v=>!v.read && v.to === myID).length,
+        users: users
       }
     case MSG_RECV:
-    console.log(action)
       const n = action.payload.myID === action.payload.data.to ? 1 : 0
       return {
         ...state, 
@@ -33,7 +33,15 @@ export function chat (state=initState, action) {
         unread: state.unread + n
       }
     case MSG_READ:
-      return {...state}
+      const {from, num} = action.payload
+      return {
+        ...state, 
+        msg: state.msg.map(msg=>({
+          ...msg,
+          read: msg.from===from?true:msg.read
+        })),
+        unread: state.unread - num
+      }
     default:
       return initState
   }
@@ -51,6 +59,23 @@ export function getMsgList () {
     axios.get('/user/msg/list').then(res => {
       if (res.status === 200 && res.data.success) {
         dispatch(msgList(res.data.chat, res.data.users, getState().user._id))
+      }
+    }).catch(err=>{})
+  }
+}
+
+export function readMsg (from) {
+  return (dispatch, getState) => {
+    axios.post('/user/msg/read', {from}).then(res => {
+      if (res.status === 200 && res.data.success) {
+        const myID = getState().user._id
+        dispatch({
+          type: MSG_READ,
+          payload: {
+            from: myID,
+            num: res.data.data
+          }
+        })
       }
     }).catch(err=>{})
   }

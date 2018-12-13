@@ -6,11 +6,8 @@ import { Switch, Route } from 'react-router-dom'
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
 import User from '../user/user'
+import Msg from '../msg/msg'
 import { getMsgList, recvMsg } from '../../redux/chat.redux'
-
-function Msg () {
-  return <div>Msg</div>
-}
 
 const mapStateToProps = state => state
 @connect(mapStateToProps, {getMsgList, recvMsg})
